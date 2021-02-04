@@ -16,7 +16,7 @@ public class ShoppingServiceApplication {
 	}
 
 	@Bean
-	@LoadBalanced
+	@LoadBalanced // Test load balance by starting multiple instance of payment-service
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}

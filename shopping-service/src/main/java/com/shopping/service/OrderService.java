@@ -1,5 +1,7 @@
 package com.shopping.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +29,10 @@ public class OrderService {
 
 	public Order updateOrder(Order order) {
 		return orderRepository.save(order);
+	}
+
+	public List<Order> getAllOrders() {
+		return orderRepository.findAll();
 	}
 
 }
