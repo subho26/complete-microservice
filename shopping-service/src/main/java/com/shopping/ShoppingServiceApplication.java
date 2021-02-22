@@ -29,8 +29,11 @@ public class ShoppingServiceApplication {
 	}
 
 	@Bean
-	public KafkaProducerFactory getKafkaProducerFactory(KafkaConfig config) {
-		KafkaProducerFactory factory = KafkaProducerFactory.newProducerFactoryBuilder().setKafkaConfig(config).setProducerClientId("producerClientId").build();
+	public KafkaProducerFactory getKafkaProducerFactory(KafkaConfig config, Environment env) {
+		KafkaProducerFactory factory = KafkaProducerFactory.newProducerFactoryBuilder()
+				.setKafkaConfig(config)
+				.setProducerClientId(env.getRequiredProperty("kafka.clientId", String.class) + "--producer")
+				.build();
 		return factory;
 	}
 
