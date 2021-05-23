@@ -19,7 +19,6 @@ import com.shopping.service.OrderService;
 @RestController
 @RequestMapping("/shopping")
 public class ShoppingController {
-
 	@Autowired
 	private OrderService orderService;
 

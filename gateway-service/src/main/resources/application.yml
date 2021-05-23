@@ -11,7 +11,7 @@ spring:  application:    name: GATEWAY-SERVICE
   cloud:    gateway:      routes:      - id: shopping-service
         uri: lb://SHOPPING-SERVICE
         predicates:        - Path=/shopping/**
-      - id: shopping-service
+      - id: payment-service
         uri: lb://PAYMENT-SERVICE
         predicates:
         - Path=/payment/**          

@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.shopping.model.Entity;
-import com.shopping.model.EntityType;
 import com.shopping.model.OrderEntity;
 
 @Service
@@ -38,12 +37,12 @@ public class KafkaPublisherImpl implements KafkaPublisher {
 
 	@Override
 	public void publishOrder(OrderEntity orderEntity) {
-		KafkaHeaders headers = new KafkaHeaders(EntityType.OrderEntity.toString(), orderEntity.getEntityId());
+		KafkaHeaders headers = new KafkaHeaders(orderEntity.getEntityType().toString(), orderEntity.getEntityId());
 		headers.addHeader("ORDER_NAME", orderEntity.getName());
-		publish(this.partition, headers, orderEntity);
+		publish(headers, orderEntity);
 	}
 
-	private void publish(int partition2, KafkaHeaders headers, OrderEntity orderEntity) {
+	private void publish(KafkaHeaders headers, OrderEntity orderEntity) {
 		logger.info("Publishing {} : {}", orderEntity.getEntityType(), orderEntity.getEntityId());
 		ProducerRecord<String, Entity> record = new ProducerRecord<String, Entity>(this.topic, this.partition, null,
 				orderEntity.getEntityId(), orderEntity, headers.getHeaders());
