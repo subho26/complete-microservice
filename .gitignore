@@ -2,3 +2,4 @@
 .mvn
 mvnw
 .metadata
+/AuthServer/target
