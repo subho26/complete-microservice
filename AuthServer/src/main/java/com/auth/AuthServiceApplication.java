@@ -5,13 +5,14 @@ import com.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-//@EnableEurekaClient
+@EnableEurekaClient
 public class AuthServiceApplication {
     @Autowired
     private UserRepository repository;

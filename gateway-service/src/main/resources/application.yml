@@ -5,13 +5,25 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
       
-  instance:    hostname: localhost
+  instance:
+    hostname: localhost
   
-spring:  application:    name: GATEWAY-SERVICE
-  cloud:    gateway:      routes:      - id: shopping-service
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+      - id: shopping-service
         uri: lb://SHOPPING-SERVICE
-        predicates:        - Path=/shopping/**
+        predicates:
+        - Path=/shopping/**
       - id: payment-service
         uri: lb://PAYMENT-SERVICE
         predicates:
-        - Path=/payment/**          
+        - Path=/payment/**
+      - id: auth-service
+        uri: lb://AUTH-SERVICE
+        predicates:
+        - Path=/auth/**
+          
