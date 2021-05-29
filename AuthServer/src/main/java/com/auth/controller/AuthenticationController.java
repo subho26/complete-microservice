@@ -1,8 +1,11 @@
 package com.auth.controller;
 
 import com.auth.model.AuthRequest;
+import com.auth.model.AuthResponse;
 import com.auth.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +24,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
-        return jwtUtil.generateToken(authRequest.getUserName());
+    public ResponseEntity<AuthResponse> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        return new ResponseEntity<>(jwtUtil.prepareAuthResponse(authRequest), HttpStatus.OK);
     }
 }

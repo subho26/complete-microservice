@@ -20,9 +20,9 @@ public class AuthServiceApplication {
     @PostConstruct
     public void initUsers() {
         List<User> users = Arrays.asList(
-                new User(101, "user1", "pwd1", "user1@user.com"),
-                new User(102, "user2", "pwd2", "user2@user.com"),
-                new User(103, "user3", "pwd3", "user3@user.com"));
+                new User(101, "user1", "pwd1", "user1@user.com", "Ajit", "Roy"),
+                new User(102, "user2", "pwd2", "user2@user.com", "Sonam", "Sanon"),
+                new User(103, "user3", "pwd3", "user3@user.com", "Rohit", "Singh"));
         repository.saveAll(users);
     }
 
