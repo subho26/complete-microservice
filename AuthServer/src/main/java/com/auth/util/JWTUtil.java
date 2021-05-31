@@ -1,8 +1,13 @@
 package com.auth.util;
 
+import com.auth.model.AuthRequest;
+import com.auth.model.AuthResponse;
+import com.auth.model.User;
+import com.auth.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,9 @@ import java.util.function.Function;
 public class JWTUtil {
 
     private final String secret = "secret";
+
+    @Autowired
+    private UserRepository userRepository;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -38,6 +46,8 @@ public class JWTUtil {
 
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", "user");
+        claims.put("can delete", false);
         return createToken(claims, username);
     }
 
@@ -51,5 +61,11 @@ public class JWTUtil {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    public AuthResponse prepareAuthResponse(AuthRequest authRequest) {
+        final String token = generateToken(authRequest.getUsername());
+        final User user = userRepository.findByUserName(authRequest.getUsername());
+        return new AuthResponse(user.getUserName(), user.getFirstName(), user.getLastName(), user.getEmail(), token);
     }
 }

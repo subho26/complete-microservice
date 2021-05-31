@@ -4,26 +4,40 @@ eureka:
     fetch-registry: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-      
+
   instance:
     hostname: localhost
-  
+
 spring:
   application:
     name: GATEWAY-SERVICE
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
       routes:
-      - id: shopping-service
-        uri: lb://SHOPPING-SERVICE
-        predicates:
-        - Path=/shopping/**
-      - id: payment-service
-        uri: lb://PAYMENT-SERVICE
-        predicates:
-        - Path=/payment/**
-      - id: auth-service
-        uri: lb://AUTH-SERVICE
-        predicates:
-        - Path=/auth/**
-          
+        - id: shopping-service
+          uri: lb://SHOPPING-SERVICE
+          predicates:
+            - Path=/shopping/**
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/product/**
