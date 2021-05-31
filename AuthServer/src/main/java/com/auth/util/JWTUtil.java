@@ -46,6 +46,8 @@ public class JWTUtil {
 
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", "user");
+        claims.put("can delete", false);
         return createToken(claims, username);
     }
 
