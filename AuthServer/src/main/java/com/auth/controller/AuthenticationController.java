@@ -10,6 +10,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -24,8 +28,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthResponse> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+    public ResponseEntity<AuthResponse> generateToken(@RequestBody AuthRequest authRequest, HttpServletResponse response, HttpServletRequest request) throws Exception {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Cookie cookie = new Cookie("username", "Jovan");
+        cookie.setSecure(false);
+        cookie.setHttpOnly(true);
+
+        //add cookie to response
+        response.addCookie(cookie);
         return new ResponseEntity<>(jwtUtil.prepareAuthResponse(authRequest), HttpStatus.OK);
     }
 }

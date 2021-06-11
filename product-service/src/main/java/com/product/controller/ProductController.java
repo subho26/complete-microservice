@@ -23,6 +23,7 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> placeOrder() {
         if (jwtUtil.getClaims().get("role").equals("user")) {
+            System.out.println("999999====" + 8086);
             return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.UNAUTHORIZED);

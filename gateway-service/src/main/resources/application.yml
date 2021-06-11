@@ -24,6 +24,7 @@ spring:
               - DELETE
               - PUT
               - OPTIONS
+            allowCredentials: true
       routes:
         - id: shopping-service
           uri: lb://SHOPPING-SERVICE
