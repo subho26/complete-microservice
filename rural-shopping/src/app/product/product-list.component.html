@@ -1,13 +1,10 @@
-<h1>Hi {{currentUser.firstName}}!</h1>
-<p>You're logged In!!</p>
-
-<!-- <div class="form-group">
+<div class="form-group">
     <button class="btn btn-primary" (click)="callProduct()">
-        Show All Products
+        {{showHide ? 'Show' : 'Hide'}} All Products
     </button>
 </div>
 
-<div class="container" *ngIf="products">
+<div class="container" *ngIf="!(showHide)">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -20,10 +17,13 @@
         <tbody>
             <tr *ngFor="let product of products">
                 <td>{{product.productId}}</td>
-                <td>{{product.productName}}</td>
-                <td>{{product.expiryDate}}</td>
-                <td>{{product.price}}</td>
+                <td><a [routerLink]="['/products', product.productId]">
+                        {{ product.productName | uppercase}}
+                    </a>
+                </td>
+                <td>{{product.expiryDate | date: 'MMM-dd-yyyy'}}</td>
+                <td>{{product.price | currency:'INR':'symbol'}}</td>
             </tr>
         </tbody>
     </table>
-</div> -->
+</div>

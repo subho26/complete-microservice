@@ -9,9 +9,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from './shared/shared.module';
 import { AlertComponent } from './alert/alert.component';
+import { ProductModule } from './product/product.module';
 
 @NgModule({
-    imports: [BrowserModule, appRoutingModule, SharedModule, ReactiveFormsModule, FormsModule],
+    imports: [BrowserModule, appRoutingModule, SharedModule, ReactiveFormsModule, FormsModule, ProductModule],
     declarations: [AppComponent, HomeComponent, LoginComponent, RegisterComponent, AlertComponent],
     bootstrap: [AppComponent]
 })
